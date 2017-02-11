@@ -55,6 +55,17 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       <parent link="${prefix}_laser_mount" />
       <child link="${prefix}_laser" />
     </joint>
+    <link name="laser">
+      <!--visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+      </visual -->
+    </link>
+    <joint name="laser_connection" type="fixed">
+      <!-- This offset is from the base of the bracket to the LIDAR's focal point. -->
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <parent link="${prefix}_laser" />
+      <child link="laser" />
+    </joint>
 
   </xacro:macro>
 

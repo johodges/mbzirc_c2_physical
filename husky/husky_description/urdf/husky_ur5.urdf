@@ -755,7 +755,8 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
     <!-- Stow position up -->
     <origin rpy="0.0 -1.5707 0.0" xyz="0.0 0.0 0.39225"/>
     <axis xyz="0 1 0"/>
-    <limit effort="28.0" lower="-3.14159265" upper="3.14159265" velocity="3.2"/>
+    <!--limit effort="28.0" lower="-3.14159265" upper="3.14159265" velocity="3.2"/ -->
+    <limit effort="28.0" lower="-6.28" upper="6.28" velocity="3.2"/>
     <dynamics damping="0.0" friction="0.0"/>
   </joint>
   <link name="ur5_arm_wrist_1_link">

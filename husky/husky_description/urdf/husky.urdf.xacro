@@ -24,6 +24,14 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCL
 ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <robot name="husky_robot" xmlns:xacro="http://ros.org/wiki/xacro">
+  <arg name="laser_enabled" default="false"/>
+  <arg name="ur5_enabled" default="true"/>
+  <arg name="ur5_camera_enabled" default="false"/>
+  <arg name="ur5_mbzirc_gripper_enabled" default="false" />
+  <arg name="kinect_enabled" default="false"/>
+  <arg name="kinectv2_enabled" default="false"/>
+  <arg name="primesense_enabled" default="false"/>
+  <arg name="velodyne_lidar" default="true"/>
 
   <!-- Included URDF/XACRO Files -->
   <xacro:include filename="$(find husky_description)/urdf/decorations.urdf.xacro" />
@@ -34,6 +42,8 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
   <xacro:include filename="$(find husky_description)/urdf/accessories/sick_lms1xx_mount.urdf.xacro"/>
   <xacro:include filename="$(find husky_description)/urdf/accessories/sensor_arch.urdf.xacro"/>
   <xacro:include filename="$(find ur_description)/urdf/ur5.urdf.xacro" />
+  <xacro:include filename="$(find velodyne_description)/urdf/HDL-32E.urdf.xacro" />
+  <!-- xacro:include filename="$(find velodyne_description)/urdf/VLP-16.urdf.xacro" / -->
 
   <property name="M_PI" value="3.14159"/>
 
@@ -186,6 +196,24 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
         <child link="base_laser_mount" />
       </joint>
 
+    </xacro:if>
+
+    <xacro:if value="$(arg velodyne_lidar)" >
+
+    <!--VLP-16 parent="top_plate_link" name="velodyne_link" topic="velodyne_points" >
+      <origin xyz="-0.35 0 0.51" rpy="0 0 0"/>
+    </VLP-16 -->
+    <HDL-32E parent="top_plate_link" name="velodyne_link" topic="velodyne_points" >
+        <origin xyz="0.44 0 -0.16" rpy="0 0 -1.57" />
+    </HDL-32E>
+
+      <!-- velodyne_vlp16_mount prefix="base" topic="velodyne_points"/ -->
+      <!-- joint name="laser_mount_joint" type="fixed">
+        <origin xyz="$(optenv HUSKY_LMS1XX_XYZ 0.415 0.0 -0.04)"
+                rpy="$(optenv HUSKY_LMS1XX_RPY 0.0 0.0 0.0)" />
+        <parent link="top_plate_link" />
+        <child link="base_laser_mount" />
+      </joint -->
     </xacro:if>
 
     <!-- Spawn Kinect if kinect_enabled = "true" -->
